@@ -79,8 +79,17 @@ public class Main extends JFrame {
     private JComponent getBootstrapPanel(){
 
         JPanel bootstrapPanel = new JPanel();
-        JLabel textLabel = new JLabel("Name");
-        JTextField nameField = new JTextField(20);
+
+//      BOOTSTRAP COMPONENTS.
+
+        JLabel bootstrapIpLabel = new JLabel("IP");
+        JTextField bootstrapIpField = new JTextField(15);
+
+        JLabel bootstrapPortLabel = new JLabel("PORT");
+        JTextField bootstrapPortField = new JTextField(5);
+
+        JLabel bootstrapIdLabel = new JLabel("IDENTIFIER");
+        JTextField bootstrapIdField = new JTextField(20);
 
         GroupLayout gpLayout = new GroupLayout(bootstrapPanel);
         bootstrapPanel.setLayout(gpLayout);
@@ -88,16 +97,35 @@ public class Main extends JFrame {
         gpLayout.setAutoCreateGaps(true);
         gpLayout.setAutoCreateContainerGaps(true);
 
+
         gpLayout.setHorizontalGroup(
                 gpLayout.createSequentialGroup()
-                .addComponent(textLabel)
-                .addComponent(nameField)
-        );
+                        .addGroup(gpLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addComponent(bootstrapIpLabel)
+                                        .addComponent(bootstrapPortLabel)
+                                        .addComponent(bootstrapIdLabel)
+                        )
+                        .addGroup(gpLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addComponent(bootstrapIpField)
+                                        .addComponent(bootstrapPortField)
+                                        .addComponent(bootstrapIdField)
+                        ));
+
 
         gpLayout.setVerticalGroup(
-                gpLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                .addComponent(textLabel)
-                .addComponent(nameField)
+                gpLayout.createSequentialGroup()
+                .addGroup(gpLayout.createParallelGroup()
+                        .addComponent(bootstrapIpLabel)
+                        .addComponent(bootstrapIpField)
+                )
+                .addGroup(gpLayout.createParallelGroup()
+                        .addComponent(bootstrapPortLabel)
+                        .addComponent(bootstrapPortField)
+                )
+                .addGroup(gpLayout.createParallelGroup()
+                        .addComponent(bootstrapIdLabel)
+                        .addComponent(bootstrapIdField)
+                )
         );
 
         return bootstrapPanel;
@@ -109,7 +137,7 @@ public class Main extends JFrame {
 
         logger.info("Starting the main configuration interface.");
         EventQueue.invokeLater(new Runnable() {
-            @Override
+
             public void run() {
                 Main main  = new Main();
                 main.setVisible(true);
