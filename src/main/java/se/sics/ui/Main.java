@@ -57,14 +57,19 @@ public class Main extends JFrame {
     }
 
 
-
-
+    /**
+     * Construct panel for setting the configuration for the
+     * main application.
+     *
+     * @return
+     */
     private JComponent getConfigurationPanel(){
 
         JPanel panel = new JPanel();
-
         JLabel textLabel = new JLabel("Configuration Panel");
-        panel.add(textLabel, BorderLayout.CENTER);
+
+        panel.setLayout(new BorderLayout());
+        panel.add(textLabel, BorderLayout.NORTH);
 
         return panel;
     }
@@ -74,9 +79,26 @@ public class Main extends JFrame {
     private JComponent getBootstrapPanel(){
 
         JPanel bootstrapPanel = new JPanel();
+        JLabel textLabel = new JLabel("Name");
+        JTextField nameField = new JTextField(20);
 
-        JLabel textLabel = new JLabel("Bootstrap Panel");
-        bootstrapPanel.add(textLabel, BorderLayout.CENTER);
+        GroupLayout gpLayout = new GroupLayout(bootstrapPanel);
+        bootstrapPanel.setLayout(gpLayout);
+
+        gpLayout.setAutoCreateGaps(true);
+        gpLayout.setAutoCreateContainerGaps(true);
+
+        gpLayout.setHorizontalGroup(
+                gpLayout.createSequentialGroup()
+                .addComponent(textLabel)
+                .addComponent(nameField)
+        );
+
+        gpLayout.setVerticalGroup(
+                gpLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                .addComponent(textLabel)
+                .addComponent(nameField)
+        );
 
         return bootstrapPanel;
     }
