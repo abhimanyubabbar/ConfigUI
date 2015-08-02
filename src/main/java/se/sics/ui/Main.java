@@ -5,7 +5,10 @@ import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 
 /**
  * Main class representing the UI for setting
@@ -66,16 +69,46 @@ public class Main extends JFrame {
     private JComponent getConfigurationPanel(){
 
         JPanel panel = new JPanel();
-        JLabel textLabel = new JLabel("Configuration Panel");
+        JButton fileLocButton = new JButton("Library");
+
+        final JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File("."));
+        fileChooser.setDialogTitle("Library Path");
+
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fileChooser.setAcceptAllFileFilterUsed(false);
+
+
+        fileLocButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                int returnVal = fileChooser.showOpenDialog(Main.this);
+                if(returnVal == JFileChooser.APPROVE_OPTION) {
+
+                    File file =  fileChooser.getSelectedFile();
+                    logger.info("Directory Location: " + file.getAbsolutePath());
+                }
+                else{
+
+                    logger.info("User Cancelled setting the directory location.");
+                }
+            }
+        });
+
+
+
 
         panel.setLayout(new BorderLayout());
-        panel.add(textLabel, BorderLayout.NORTH);
+        panel.add(fileLocButton, BorderLayout.NORTH);
 
         return panel;
     }
 
 
-
+    /**
+     * Construct the panel for setting the
+     * @return
+     */
     private JComponent getBootstrapPanel(){
 
         JPanel bootstrapPanel = new JPanel();

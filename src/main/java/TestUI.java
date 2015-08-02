@@ -27,7 +27,6 @@ public class TestUI extends JFrame {
 
 
         EventQueue.invokeLater(new Runnable() {
-            @Override
             public void run() {
 
                 TestUI ui = new TestUI();

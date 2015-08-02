@@ -23,7 +23,6 @@ public class ButtonTestUI extends JFrame{
 
         JButton button = new JButton("Quit");
         button.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
@@ -57,7 +56,6 @@ public class ButtonTestUI extends JFrame{
 
 
         EventQueue.invokeLater(new Runnable() {
-            @Override
             public void run() {
                 ButtonTestUI ui = new ButtonTestUI();
                 ui.setVisible(true);
