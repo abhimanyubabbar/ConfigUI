@@ -30,11 +30,13 @@ public class Main extends JFrame {
 
 
         Container contentPane = getContentPane();
-        contentPane.add(getTabbedPane(), BorderLayout.CENTER);
+        contentPane.setLayout(new BorderLayout());
+        contentPane.add(getTabbedPane(), BorderLayout.NORTH);
+        contentPane.add(getBottomPane(), BorderLayout.SOUTH);
 
 //      MAIN SCREEN CONFIGURATION.
         setTitle("DY Configuration.");
-        setSize(600, 400);
+        setSize(420, 200);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
@@ -71,6 +73,9 @@ public class Main extends JFrame {
         JPanel panel = new JPanel();
         JButton fileLocButton = new JButton("Library");
 
+        final JTextField libLocation = new JTextField(25);
+        libLocation.setEditable(false);
+
         final JFileChooser fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(new File("."));
         fileChooser.setDialogTitle("Library Path");
@@ -83,23 +88,23 @@ public class Main extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 int returnVal = fileChooser.showOpenDialog(Main.this);
-                if(returnVal == JFileChooser.APPROVE_OPTION) {
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
 
-                    File file =  fileChooser.getSelectedFile();
+                    File file = fileChooser.getSelectedFile();
                     logger.info("Directory Location: " + file.getAbsolutePath());
-                }
-                else{
+
+                    libLocation.setText(file.getAbsolutePath());
+
+                } else {
 
                     logger.info("User Cancelled setting the directory location.");
                 }
             }
         });
 
-
-
-
-        panel.setLayout(new BorderLayout());
-        panel.add(fileLocButton, BorderLayout.NORTH);
+        panel.setLayout(new FlowLayout());
+        panel.add(fileLocButton);
+        panel.add(libLocation);
 
         return panel;
     }
@@ -147,21 +152,38 @@ public class Main extends JFrame {
 
         gpLayout.setVerticalGroup(
                 gpLayout.createSequentialGroup()
-                .addGroup(gpLayout.createParallelGroup()
-                        .addComponent(bootstrapIpLabel)
-                        .addComponent(bootstrapIpField)
-                )
-                .addGroup(gpLayout.createParallelGroup()
-                        .addComponent(bootstrapPortLabel)
-                        .addComponent(bootstrapPortField)
-                )
-                .addGroup(gpLayout.createParallelGroup()
-                        .addComponent(bootstrapIdLabel)
-                        .addComponent(bootstrapIdField)
-                )
+                        .addGroup(gpLayout.createParallelGroup()
+                                        .addComponent(bootstrapIpLabel)
+                                        .addComponent(bootstrapIpField)
+                        )
+                        .addGroup(gpLayout.createParallelGroup()
+                                        .addComponent(bootstrapPortLabel)
+                                        .addComponent(bootstrapPortField)
+                        )
+                        .addGroup(gpLayout.createParallelGroup()
+                                        .addComponent(bootstrapIdLabel)
+                                        .addComponent(bootstrapIdField)
+                        )
         );
 
         return bootstrapPanel;
+    }
+
+
+    /**
+     * Get the panel for the bottommost part of the application.
+     *
+     * @return bottom panel.
+     */
+    public Component getBottomPane(){
+
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+
+        JButton saveButton = new JButton("Save");
+        bottomPanel.add(saveButton);
+
+        return bottomPanel;
     }
 
 
